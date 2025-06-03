@@ -343,7 +343,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/",
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/personal",
 					"protocol": "https",
 					"host": [
 						"v6devapiman",
@@ -357,7 +357,7 @@
 						"employees",
 						"{{stonerise_emp_id}}",
 						"sections",
-						""
+						"personal"
 					]
 				}
 			},
