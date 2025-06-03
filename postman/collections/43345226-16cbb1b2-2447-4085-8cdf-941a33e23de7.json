@@ -318,7 +318,12 @@
 						"exec": [
 							"const jsondata = pm.response.json();\r",
 							"console.log(jsondata);\r",
-							""
+							"pm.test(\"verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200)\r",
+							"}\r",
+							"\r",
+							")"
 						],
 						"type": "text/javascript",
 						"packages": {}
