@@ -392,7 +392,7 @@
 							");\r",
 							"pm.test(\"verify the fullname is not null \", function()\r",
 							"{\r",
-							"    pm.expect(jsondata.data.profile.data.fullName).is.not.null\r",
+							"    pm.expect(jsondata.data.payroll.data.ssn).is.not.null\r",
 							"}\r",
 							")"
 						],
