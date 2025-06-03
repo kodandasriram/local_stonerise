@@ -390,7 +390,7 @@
 							"}\r",
 							"\r",
 							");\r",
-							"pm.test(\"verify the fullname is not null \", function()\r",
+							"pm.test(\"verify the ssn is not null \", function()\r",
 							"{\r",
 							"    pm.expect(jsondata.data.payroll.data.ssn).is.not.null\r",
 							"}\r",
