@@ -373,6 +373,71 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "emp personal section Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5aab3dad-13c2-426d-a154-112292219e80",
+						"exec": [
+							"const jsondata = pm.response.json();\r",
+							"console.log(jsondata);\r",
+							"pm.test(\"verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200)\r",
+							"}\r",
+							"\r",
+							");\r",
+							"pm.test(\"verify the fullname is not null \", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.data.profile.data.fullName).is.not.null\r",
+							"}\r",
+							")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-bb2b35ec-ddee-43bd-9f54-955725e0cf6c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/personal",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees",
+						"{{stonerise_emp_id}}",
+						"sections",
+						"personal"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
