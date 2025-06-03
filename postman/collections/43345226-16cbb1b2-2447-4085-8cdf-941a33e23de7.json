@@ -323,6 +323,11 @@
 							"    pm.response.to.have.status(200)\r",
 							"}\r",
 							"\r",
+							");\r",
+							"pm.test(\"verify the fullname is not null \", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.data.profile.data.fullName).is.not.null\r",
+							"}\r",
 							")"
 						],
 						"type": "text/javascript",
