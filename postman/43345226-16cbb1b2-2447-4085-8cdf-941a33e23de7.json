@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "43345226-16cbb1b2-2447-4085-8cdf-941a33e23de7",
+		"name": "Smartlinx_STG_StoneRise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Stg StoneRise Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d94ee76c-e4a6-426e-ba45-71c97cb5dcde",
+						"exec": [
+							"console.log(pm.response.json())\r",
+							"const jsonfile = pm.response.json()\r",
+							"console.log(jsonfile.data.response.token)\r",
+							"const StoneRiseToken = jsonfile.data.response.token\r",
+							"console.log(jsonfile.data.status.description)\r",
+							"pm.collectionVariables.set('StoneRise_token',StoneRiseToken)\r",
+							"pm.test('Verify status code is 200',function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200)\r",
+							"}\r",
+							")\r",
+							"pm.test('Verify Authentication is successful',function()\r",
+							"{\r",
+							"    pm.expect(jsonfile.data.status.description).to.equal('Authentication valid.')\r",
+							"}\r",
+							")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-ea7d960c-00f5-40b4-b10d-ad07150f355b",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				},
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-slx-alias",
+						"value": "stonerisestg",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{username: \"system\", password: \"M3t@phys!c@l\"}"
+				},
+				"url": {
+					"raw": "https://v6-dev-api-man.azure-api.net/stg/api/v1/jwt/auth",
+					"protocol": "https",
+					"host": [
+						"v6-dev-api-man",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"jwt",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StgExistingEmp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "644db567-fd0a-4c0d-95fc-9e9d530ba10a",
+						"exec": [
+							"console.log(pm.response.json())\r",
+							"pm.test('Verify status code of existing exployee is 409',function()\r",
+							"{\r",
+							"    pm.response.to.have.status(409)\r",
+							"}\r",
+							")\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-cfb8b962-0fbd-4440-951f-c78efa1a0105",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"stonerise\",\r\n    \"lastName\": \"Test \",\r\n    \"middleName\": \"middle\",\r\n    \"suffix\": \"suffix\",\r\n    \"employeeType\": {\r\n        \"name\": \"AFT\",\r\n        \"description\": \"Agency FT\",\r\n        \"fullTimeIndex\": \"Y\"\r\n    },\r\n    \"position\": {\r\n        \"id\": 1269,\r\n        \"name\": \"Administrator\",\r\n        \"orgLevelId\": 587,\r\n        \"positionGroupId\": null,\r\n        \"positionGroupName\": null,\r\n        \"group\": null,\r\n        \"groupedWithPositionId\": null,\r\n        \"startDate\": \"01-01-1900\",\r\n        \"endDate\": \"06-06-2079\"\r\n    },\r\n    \"payrollNumber\": \"878999999\",\r\n    \"ssn\": \"657-65-7657\",\r\n    \"hireDate\": \"05-01-2025 00:00:00\",\r\n    \"birthDate\": \"05-01-2011 00:00:00\",\r\n    \"payPolicy\": {\r\n        \"name\": \"Salaried\",\r\n        \"description\": \"Salaried\"\r\n    },\r\n    \"shiftDiffPolicy\": {\r\n        \"name\": \"No Diff\",\r\n        \"description\": \"No Diff\"\r\n    },\r\n    \"payType\": \"Salaried\",\r\n    \"exemptStatus\": \"Weekly Hours spread evenly across weekdays\",\r\n    \"workWeekHours\": 23,\r\n    \"dailyBenefitHours\": null,\r\n    \"hourlyRate\": 22,\r\n    \"hourlyRate2\": 3344,\r\n    \"hourlyRate3\": null,\r\n    \"payClass\": 34,\r\n    \"companyCode\": \"23232\",\r\n    \"fileNumber\": 343443,\r\n    \"address\": \"Hyderabad\",\r\n    \"city\": \"Hyderabad\",\r\n    \"state\": \"MA\",\r\n    \"zipCode\": \"23333\",\r\n    \"phone\": \"(546) 546-5455\",\r\n    \"mobilePhone\": \"(879) 779-7987\",\r\n    \"altPhone\": \"(564) 654-5646\",\r\n    \"email1\": \"qasmartlinx@smartlinx.com\",\r\n    \"email2\": \"qasmartlinx@smartlinx.com\",\r\n    \"gender\": \"Male\",\r\n    \"maritalStatus\": \"Single\",\r\n    \"race\": \"Not Identified\",\r\n    \"badgeId\": \"50003383\",\r\n    \"timeclockIds\": [],\r\n    \"enableTimesheetsAccess\": false,\r\n    \"accessType\": null,\r\n    \"timeCard\": false,\r\n    \"schedule\": false,\r\n    \"availability\": false,\r\n    \"departmentSchedule\": false,\r\n    \"inservice\": false,\r\n    \"payStubs\": false,\r\n    \"allowPasswordChange\": false,\r\n    \"allowAddressChange\": false,\r\n    \"password\": null,\r\n    \"benefitClassId\": null,\r\n    \"benefitClassEffectiveDate\": \"05-01-2025 00:00:00\",\r\n    \"optInRequest\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StgAddEmp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "644db567-fd0a-4c0d-95fc-9e9d530ba10a",
+						"exec": [
+							"console.log(pm.response.json());\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test('Verify status code of existing employee is 200',function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test('Verify id is not blank',function() {\r",
+							"    pm.expect(jsonData.data.id).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test('Verify payrollNumber is not blank', function () {\r",
+							"   pm.expect(jsonData.data.payrollNumber).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test('Verify emp_id is set as collectionVariable',function() {\r",
+							"    pm.collectionVariables.set('stonerise_emp_id', jsonData.data.id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "40d276e4-0f5b-44f5-89bd-fc0665514352",
+						"exec": [
+							"//Dynamic generation of random fName\r",
+							"pm.collectionVariables.set(\"fName\",pm.variables.replaceIn('{{$randomFirstName}}'))\r",
+							"//Dynamic generation of random lName\r",
+							"pm.collectionVariables.set(\"lName\",pm.variables.replaceIn('{{$randomLastName}}'))\r",
+							"//Dynamic generation of random 9-digit SSN number\r",
+							"pm.collectionVariables.set(\"SSN\",Math.floor(100000000 + Math.random() * 900000000))\r",
+							"//Dynamic generation of random 8-digit BadgeID\r",
+							"pm.collectionVariables.set(\"Badgeid\",Math.floor(Math.random() * 90000000));\r",
+							"//Dynamic generation of random 10-digit PayrollNo\r",
+							"pm.collectionVariables.set(\"PayrollNo\",Math.floor(Math.random() * 900000000));\r",
+							"\r",
+							"//Upload employee details through csv or json file. postman allows only csv and json\r",
+							"//pm.collectionVariables.set(\"pass variable\", pm.iterationData.get(\"CSV COLUMN NAME\"));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-4838c4a1-d7c5-4c86-8b31-7df668bc2afb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"{{fName}}\",\r\n    \"lastName\": \"{{lName}} \",\r\n    \"middleName\": \"middle\",\r\n    \"suffix\": \"suffix\",\r\n    \"employeeType\": {\r\n        \"name\": \"AFT\",\r\n        \"description\": \"Agency FT\",\r\n        \"fullTimeIndex\": \"Y\"\r\n    },\r\n    \"position\": {\r\n        \"id\": 1269,\r\n        \"name\": \"Administrator\",\r\n        \"orgLevelId\": 587,\r\n        \"positionGroupId\": null,\r\n        \"positionGroupName\": null,\r\n        \"group\": null,\r\n        \"groupedWithPositionId\": null,\r\n        \"startDate\": \"01-01-1900\",\r\n        \"endDate\": \"06-06-2079\"\r\n    },\r\n    \"payrollNumber\": \"{{PayrollNo}}\",\r\n    \"ssn\": \"{{SSN}}\",\r\n    \"hireDate\": \"05-01-2025 00:00:00\",\r\n    \"birthDate\": \"05-01-2011 00:00:00\",\r\n    \"payPolicy\": {\r\n        \"name\": \"Salaried\",\r\n        \"description\": \"Salaried\"\r\n    },\r\n    \"shiftDiffPolicy\": {\r\n        \"name\": \"No Diff\",\r\n        \"description\": \"No Diff\"\r\n    },\r\n    \"payType\": \"Salaried\",\r\n    \"exemptStatus\": \"Weekly Hours spread evenly across weekdays\",\r\n    \"workWeekHours\": 23,\r\n    \"dailyBenefitHours\": null,\r\n    \"hourlyRate\": 22,\r\n    \"hourlyRate2\": 3344,\r\n    \"hourlyRate3\": null,\r\n    \"payClass\": 34,\r\n    \"companyCode\": \"23232\",\r\n    \"fileNumber\": 343443,\r\n    \"address\": \"Hyderabad\",\r\n    \"city\": \"Hyderabad\",\r\n    \"state\": \"MA\",\r\n    \"zipCode\": \"23333\",\r\n    \"phone\": \"(546) 546-5455\",\r\n    \"mobilePhone\": \"(879) 779-7987\",\r\n    \"altPhone\": \"(564) 654-5646\",\r\n    \"email1\": \"qasmartlinx@smartlinx.com\",\r\n    \"email2\": \"qasmartlinx@smartlinx.com\",\r\n    \"gender\": \"Male\",\r\n    \"maritalStatus\": \"Single\",\r\n    \"race\": \"Not Identified\",\r\n    \"badgeId\": \"{{Badgeid}}\",\r\n    \"timeclockIds\": [],\r\n    \"enableTimesheetsAccess\": false,\r\n    \"accessType\": null,\r\n    \"timeCard\": false,\r\n    \"schedule\": false,\r\n    \"availability\": false,\r\n    \"departmentSchedule\": false,\r\n    \"inservice\": false,\r\n    \"payStubs\": false,\r\n    \"allowPasswordChange\": false,\r\n    \"allowAddressChange\": false,\r\n    \"password\": null,\r\n    \"benefitClassId\": null,\r\n    \"benefitClassEffectiveDate\": \"05-01-2025 00:00:00\",\r\n    \"optInRequest\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "emp sections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af909c76-e64b-4bf4-ad3e-d2e738ee4961",
+						"exec": [
+							"const jsondata = pm.response.json();\r",
+							"console.log(jsondata);\r",
+							"console.log(jsondata.data[1].id)\r",
+							"for (let i = 0; i < jsondata.data.length; i++) {\r",
+							"    console.log(jsondata.data[i].displayName); // Personal, Employment\r",
+							"    //console.log(jsondata.data[i].id);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-73e9ffb8-068b-4bd8-88d9-74b5e10e0c44",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/personal",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees",
+						"{{stonerise_emp_id}}",
+						"sections",
+						"personal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "emp personal section",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5aab3dad-13c2-426d-a154-112292219e80",
+						"exec": [
+							"const jsondata = pm.response.json();\r",
+							"console.log(jsondata);\r",
+							"pm.test(\"verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200)\r",
+							"}\r",
+							"\r",
+							");\r",
+							"pm.test(\"verify the fullname is not null \", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.data.profile.data.fullName).is.not.null\r",
+							"}\r",
+							")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-cc5f5521-7c0b-48e8-9342-2bd8c2c71d3a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/personal",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees",
+						"{{stonerise_emp_id}}",
+						"sections",
+						"personal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "emp employment section",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5aab3dad-13c2-426d-a154-112292219e80",
+						"exec": [
+							"const jsondata = pm.response.json();\r",
+							"console.log(jsondata);\r",
+							"pm.test(\"verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200)\r",
+							"}\r",
+							"\r",
+							");\r",
+							"pm.test(\"verify the ssn is not null \", function()\r",
+							"{\r",
+							"    pm.expect(jsondata.data.payroll.data.ssn).is.not.null\r",
+							"}\r",
+							")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "43345226-bb2b35ec-ddee-43bd-9f54-955725e0cf6c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{StoneRise_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://v6devapiman.smartlinxsolutions.com/stg/api/v1/employees/{{stonerise_emp_id}}/sections/employment",
+					"protocol": "https",
+					"host": [
+						"v6devapiman",
+						"smartlinxsolutions",
+						"com"
+					],
+					"path": [
+						"stg",
+						"api",
+						"v1",
+						"employees",
+						"{{stonerise_emp_id}}",
+						"sections",
+						"employment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5a2cf2e5-675f-415a-bea3-4c8c9b49d58a",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "279b8223-a7f5-49f6-84d8-3dcf4e7f7edd",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "StoneRise_token",
+			"value": ""
+		},
+		{
+			"key": "fName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "lName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "SSN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Badgeid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "PayrollNo",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "stonerise_emp_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
